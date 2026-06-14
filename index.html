@@ -440,21 +440,20 @@ body { font-family: var(--font-sans, system-ui); }
     <h1>مركز علاج التأتأة العلاجي</h1>
     <p>تقنيات علم الأعصاب + الذكاء الاصطناعي + علاج الكلام المتقدم</p>
     <div style="display:flex;gap:6px;justify-content:center;margin-top:0.75rem;flex-wrap:wrap;">
-      <span class="badge badge-green">DAF/FAF</span>
-      <span class="badge badge-purple">تدفق الكلام</span>
-      <span class="badge badge-amber">تنفس ديافراغمي</span>
-      <span class="badge badge-blue">يوغا الكلام</span>
+      <span class="badge badge-green">علاجي</span>
+      <span class="badge badge-purple">عصبي</span>
+      <span class="badge badge-blue">قرآني</span>
     </div>
   </div>
 
-  <div class="nav-tabs">
-    <button class="nav-tab active" onclick="showPanel('breathing')"><i class="ti ti-wind" aria-hidden="true"></i> التنفس</button>
-    <button class="nav-tab" onclick="showPanel('speech')"><i class="ti ti-microphone" aria-hidden="true"></i> الكلام</button>
-    <button class="nav-tab" onclick="showPanel('daf')"><i class="ti ti-headphones" aria-hidden="true"></i> DAF/FAF</button>
-    <button class="nav-tab" onclick="showPanel('exercises')"><i class="ti ti-list-check" aria-hidden="true"></i> تمارين</button>
-    <button class="nav-tab" onclick="showPanel('mindfulness')"><i class="ti ti-brain" aria-hidden="true"></i> ذهنية</button>
-    <button class="nav-tab" onclick="showPanel('progress')"><i class="ti ti-chart-line" aria-hidden="true"></i> تقدمك</button>
-  </div>
+  <!-- Bottom Navigation -->
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="showPanel('breathing')"><i class="ti ti-wind"></i>التنفس</button>
+    <button class="nav-tab" onclick="showPanel('speech')"><i class="ti ti-microphone"></i>الكلام</button>
+    <button class="nav-tab" onclick="showPanel('daf')"><i class="ti ti-headphones"></i>DAF</button>
+    <button class="nav-tab" onclick="showPanel('spiritual')"><i class="ti ti-book"></i>قرآني</button>
+    <button class="nav-tab" onclick="showPanel('progress')"><i class="ti ti-chart-line"></i>تقدمك</button>
+  </nav>
 
   <!-- BREATHING PANEL -->
   <div class="panel active" id="panel-breathing">
@@ -744,6 +743,28 @@ body { font-family: var(--font-sans, system-ui); }
     </div>
   </div>
 
+  <!-- SPIRITUAL PANEL (NEW) -->
+  <div class="panel" id="panel-spiritual">
+    <div class="card">
+      <div class="card-title"><i class="ti ti-book"></i>الرقية والعلاج القرآني</div>
+      <p style="font-size:13px;color:var(--text-dim);margin-bottom:1rem;direction:rtl">السكينة الروحية تقلل من التشنج العضلي وتساعد على طلاقة اللسان. كرر هذه الآيات بهدوء مع تطبيق تقنيات التنفس.</p>
+      
+      <div class="spiritual-verse">
+        <p class="quran-text">"قَالَ رَبِّ اشْرَحْ لِي صَدْرِي * وَيَسِّرْ لِي أَمْرِي * وَاحْلُلْ عُقْدَةً مِّن لِّسَانِي * يَفْقَهُوا قَوْلِي"</p>
+        <p style="font-size:12px;color:var(--c-primary-dark)">[سورة طه: 25-28]</p>
+      </div>
+
+      <div class="spiritual-verse" style="background:var(--c-accent-light); border-right-color:var(--c-accent)">
+        <p class="quran-text">"خَلَقَ الْإِنسَانَ * عَلَّمَهُ الْبَيَانَ"</p>
+        <p style="font-size:12px;color:var(--c-accent)">[سورة الرحمن: 3-4]</p>
+      </div>
+
+      <div class="btn-row" style="justify-content:center;">
+        <button class="btn btn-primary" onclick="playQuranAudio()"><i class="ti ti-volume"></i> استماع بصوت هادئ</button>
+      </div>
+    </div>
+  </div>
+
   <!-- PROGRESS PANEL -->
   <div class="panel" id="panel-progress">
     <div class="card">
@@ -799,6 +820,21 @@ function showPanel(id) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('panel-' + id).classList.add('active');
   event.target.closest('.nav-tab').classList.add('active');
+}
+
+function playQuranAudio() {
+  if (!ambientCtx) ambientCtx = new (window.AudioContext || window.webkitAudioContext)();
+  // محاكاة صوت هادئ للراحة النفسية
+  const osc = ambientCtx.createOscillator();
+  const gain = ambientCtx.createGain();
+  osc.type = 'triangle';
+  osc.connect(gain); gain.connect(ambientCtx.destination);
+  osc.frequency.setValueAtTime(130, ambientCtx.currentTime);
+  gain.gain.setValueAtTime(0, ambientCtx.currentTime);
+  gain.gain.linearRampToValueAtTime(0.05, ambientCtx.currentTime + 1);
+  gain.gain.linearRampToValueAtTime(0, ambientCtx.currentTime + 5);
+  osc.start(); osc.stop(ambientCtx.currentTime + 5);
+  addLog('جلسة استماع وتأمل قرآني');
 }
 
 function updateBreathRate(v) {

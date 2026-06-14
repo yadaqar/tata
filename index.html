@@ -1,0 +1,1146 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --c-primary: #1D9E75;
+  --c-primary-light: #E1F5EE;
+  --c-primary-mid: #5DCAA5;
+  --c-accent: #7F77DD;
+  --c-accent-light: #EEEDFE;
+  --c-amber: #EF9F27;
+  --c-amber-light: #FAEEDA;
+  --c-coral: #D85A30;
+  --c-coral-light: #FAECE7;
+  --c-blue: #378ADD;
+  --c-blue-light: #E6F1FB;
+}
+body { font-family: var(--font-sans, system-ui); }
+
+.app-shell {
+  padding: 0;
+  min-height: 600px;
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--c-primary-light) 0%, var(--c-accent-light) 100%);
+  border-radius: var(--border-radius-lg, 12px);
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  border: 0.5px solid var(--color-border-tertiary);
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-bottom: 0.25rem;
+  direction: rtl;
+}
+
+.hero p {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  direction: rtl;
+}
+
+.brain-wave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 1rem 0;
+}
+.wave-bar {
+  width: 4px;
+  border-radius: 2px;
+  background: var(--c-primary);
+  animation: wave 1.2s ease-in-out infinite;
+}
+.wave-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+.wave-bar:nth-child(2) { height: 16px; animation-delay: 0.1s; }
+.wave-bar:nth-child(3) { height: 24px; animation-delay: 0.2s; }
+.wave-bar:nth-child(4) { height: 32px; animation-delay: 0.3s; }
+.wave-bar:nth-child(5) { height: 24px; animation-delay: 0.4s; }
+.wave-bar:nth-child(6) { height: 16px; animation-delay: 0.5s; }
+.wave-bar:nth-child(7) { height: 8px; animation-delay: 0.6s; }
+.wave-bar:nth-child(8) { height: 16px; animation-delay: 0.7s; }
+.wave-bar:nth-child(9) { height: 24px; animation-delay: 0.8s; }
+.wave-bar:nth-child(10) { height: 32px; animation-delay: 0.9s; }
+.wave-bar:nth-child(11) { height: 24px; animation-delay: 1.0s; }
+.wave-bar:nth-child(12) { height: 16px; animation-delay: 1.1s; }
+@keyframes wave {
+  0%, 100% { transform: scaleY(0.5); opacity: 0.5; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 1.25rem;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  direction: rtl;
+}
+.nav-tab {
+  padding: 7px 14px;
+  border-radius: var(--border-radius-md, 8px);
+  border: 0.5px solid var(--color-border-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  color: var(--color-text-secondary);
+  background: var(--color-background-primary);
+  transition: all 0.2s;
+  direction: rtl;
+}
+.nav-tab.active {
+  background: var(--c-primary);
+  color: white;
+  border-color: var(--c-primary);
+  font-weight: 500;
+}
+.nav-tab:hover:not(.active) {
+  background: var(--color-background-secondary);
+  color: var(--color-text-primary);
+}
+
+.panel { display: none; }
+.panel.active { display: block; }
+
+.card {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg, 12px);
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  direction: rtl;
+}
+.card-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-title i { font-size: 18px; color: var(--c-primary); }
+
+.badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+.badge-green { background: var(--c-primary-light); color: #085041; }
+.badge-purple { background: var(--c-accent-light); color: #3C3489; }
+.badge-amber { background: var(--c-amber-light); color: #633806; }
+.badge-blue { background: var(--c-blue-light); color: #0C447C; }
+
+.technique-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+.technique-card {
+  background: var(--color-background-secondary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-md, 8px);
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  direction: rtl;
+}
+.technique-card:hover, .technique-card.active {
+  border-color: var(--c-primary);
+  background: var(--c-primary-light);
+}
+.technique-card i { font-size: 24px; color: var(--c-primary); margin-bottom: 8px; display: block; }
+.technique-card h3 { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.technique-card p { font-size: 11px; color: var(--color-text-secondary); }
+
+.breathing-circle-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1.5rem 0;
+  gap: 1rem;
+}
+.breathing-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--c-primary-light);
+  border: 3px solid var(--c-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #085041;
+  transition: transform 0.1s;
+  cursor: pointer;
+  position: relative;
+}
+.breathing-circle.expand { animation: expand 4s ease-in-out forwards; }
+.breathing-circle.hold { animation: hold-circle 2s ease-in-out forwards; }
+.breathing-circle.contract { animation: contract 4s ease-in-out forwards; }
+@keyframes expand {
+  from { transform: scale(1); background: var(--c-primary-light); }
+  to { transform: scale(1.4); background: #9FE1CB; }
+}
+@keyframes hold-circle {
+  0%, 100% { transform: scale(1.4); background: #9FE1CB; }
+}
+@keyframes contract {
+  from { transform: scale(1.4); background: #9FE1CB; }
+  to { transform: scale(1); background: var(--c-primary-light); }
+}
+.phase-label {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--c-primary);
+  min-height: 28px;
+  direction: rtl;
+}
+.timer-display {
+  font-size: 36px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.progress-bar-wrap {
+  background: var(--color-background-secondary);
+  border-radius: 6px;
+  height: 8px;
+  margin: 0.75rem 0;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  background: var(--c-primary);
+  transition: width 0.3s ease;
+}
+
+.speech-rate-visual {
+  display: flex;
+  gap: 3px;
+  margin: 0.75rem 0;
+  align-items: flex-end;
+  height: 40px;
+}
+.rate-bar {
+  flex: 1;
+  border-radius: 2px 2px 0 0;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.rate-bar:hover { opacity: 0.7; }
+
+.btn {
+  padding: 9px 20px;
+  border-radius: var(--border-radius-md, 8px);
+  border: 0.5px solid var(--color-border-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  font-family: var(--font-sans, system-ui);
+  transition: all 0.15s;
+  color: var(--color-text-primary);
+  background: var(--color-background-primary);
+}
+.btn:hover { background: var(--color-background-secondary); }
+.btn:active { transform: scale(0.98); }
+.btn-primary {
+  background: var(--c-primary);
+  color: white;
+  border-color: var(--c-primary);
+}
+.btn-primary:hover { opacity: 0.9; background: var(--c-primary); }
+.btn-sm { padding: 6px 14px; font-size: 13px; }
+.btn-row { display: flex; gap: 8px; flex-wrap: wrap; direction: rtl; }
+
+.exercise-list { direction: rtl; }
+.exercise-item {
+  padding: 10px 0;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.exercise-item:last-child { border-bottom: none; }
+.exercise-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--c-primary-light);
+  color: #085041;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.exercise-info { flex: 1; }
+.exercise-info h4 { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+.exercise-info p { font-size: 12px; color: var(--color-text-secondary); }
+.exercise-btn { font-size: 12px; }
+
+.recording-area {
+  background: var(--color-background-secondary);
+  border-radius: var(--border-radius-lg, 12px);
+  padding: 1.5rem;
+  text-align: center;
+  border: 1.5px dashed var(--color-border-secondary);
+  margin: 1rem 0;
+  direction: rtl;
+}
+.recording-btn {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: none;
+  background: var(--c-coral);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  transition: all 0.2s;
+}
+.recording-btn:hover { opacity: 0.85; }
+.recording-btn.recording {
+  background: #A32D2D;
+  animation: pulse-rec 1s infinite;
+}
+@keyframes pulse-rec {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(216,90,48,0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(216,90,48,0); }
+}
+.recording-btn i { font-size: 28px; }
+.waveform-vis {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  margin: 0.75rem 0;
+}
+.wv-bar {
+  width: 3px;
+  border-radius: 2px;
+  background: var(--c-primary);
+  transition: height 0.1s;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  direction: rtl;
+}
+.stat-box {
+  background: var(--color-background-secondary);
+  border-radius: var(--border-radius-md, 8px);
+  padding: 0.75rem;
+  text-align: center;
+}
+.stat-box .num { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+.stat-box .lbl { font-size: 11px; color: var(--color-text-secondary); }
+
+.daf-slider-area { direction: rtl; }
+.daf-slider-area label { font-size: 13px; color: var(--color-text-secondary); display: block; margin-bottom: 6px; }
+
+.tip-box {
+  background: var(--c-blue-light);
+  border-radius: var(--border-radius-md, 8px);
+  padding: 0.75rem 1rem;
+  font-size: 13px;
+  color: #0C447C;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  direction: rtl;
+  margin-top: 0.75rem;
+}
+.tip-box i { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+
+.mindfulness-phases {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  direction: rtl;
+  margin: 1rem 0;
+}
+.phase-box {
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: var(--border-radius-md, 8px);
+  background: var(--color-background-secondary);
+  border: 0.5px solid var(--color-border-tertiary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.phase-box.active { border-color: var(--c-accent); background: var(--c-accent-light); }
+.phase-box i { font-size: 20px; color: var(--c-accent); display: block; margin-bottom: 4px; }
+
+.progress-section { direction: rtl; }
+.session-log { max-height: 200px; overflow-y: auto; direction: rtl; }
+.log-entry {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  font-size: 13px;
+}
+.log-entry:last-child { border-bottom: none; }
+.log-entry i { color: var(--c-primary); font-size: 16px; }
+.log-time { color: var(--color-text-secondary); font-size: 11px; margin-right: auto; }
+
+.sound-controls { direction: rtl; margin: 1rem 0; }
+.sound-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.sound-row label { font-size: 13px; color: var(--color-text-secondary); width: 120px; text-align: right; }
+.sound-row input[type=range] { flex: 1; }
+
+.neural-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  direction: rtl;
+}
+.neural-item {
+  background: var(--color-background-secondary);
+  border-radius: var(--border-radius-md, 8px);
+  padding: 0.75rem;
+  border-right: 3px solid var(--c-accent);
+  font-size: 12px;
+  color: var(--color-text-primary);
+}
+.neural-item strong { display: block; font-size: 13px; margin-bottom: 4px; color: var(--c-accent); }
+</style>
+
+<div class="app-shell">
+  <h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">مركز علاج التأتأة العلاجي التفاعلي</h2>
+  
+  <div class="hero">
+    <div class="brain-wave" aria-hidden="true">
+      <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+      <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+      <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+      <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+    </div>
+    <h1>مركز علاج التأتأة العلاجي</h1>
+    <p>تقنيات علم الأعصاب + الذكاء الاصطناعي + علاج الكلام المتقدم</p>
+    <div style="display:flex;gap:6px;justify-content:center;margin-top:0.75rem;flex-wrap:wrap;">
+      <span class="badge badge-green">DAF/FAF</span>
+      <span class="badge badge-purple">تدفق الكلام</span>
+      <span class="badge badge-amber">تنفس ديافراغمي</span>
+      <span class="badge badge-blue">يوغا الكلام</span>
+    </div>
+  </div>
+
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPanel('breathing')"><i class="ti ti-wind" aria-hidden="true"></i> التنفس</button>
+    <button class="nav-tab" onclick="showPanel('speech')"><i class="ti ti-microphone" aria-hidden="true"></i> الكلام</button>
+    <button class="nav-tab" onclick="showPanel('daf')"><i class="ti ti-headphones" aria-hidden="true"></i> DAF/FAF</button>
+    <button class="nav-tab" onclick="showPanel('exercises')"><i class="ti ti-list-check" aria-hidden="true"></i> تمارين</button>
+    <button class="nav-tab" onclick="showPanel('mindfulness')"><i class="ti ti-brain" aria-hidden="true"></i> ذهنية</button>
+    <button class="nav-tab" onclick="showPanel('progress')"><i class="ti ti-chart-line" aria-hidden="true"></i> تقدمك</button>
+  </div>
+
+  <!-- BREATHING PANEL -->
+  <div class="panel active" id="panel-breathing">
+    <div class="card">
+      <div class="card-title"><i class="ti ti-wind" aria-hidden="true"></i>تنفس ديافراغمي عصبي</div>
+      <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:1rem;direction:rtl">التنفس الصحيح يفعّل العصب الحائر ويهدئ مركز النطق في الفص الجبهي. اتبع الدائرة.</p>
+      
+      <div class="breathing-circle-container">
+        <div class="timer-display" id="breath-timer">4</div>
+        <div class="breathing-circle" id="breath-circle" onclick="startBreathing()">
+          <span id="breath-label">ابدأ</span>
+        </div>
+        <div class="phase-label" id="breath-phase">اضغط للبدء</div>
+      </div>
+
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="breath-progress" style="width:0%"></div>
+      </div>
+
+      <div class="btn-row" style="justify-content:center;margin-top:0.75rem;">
+        <button class="btn btn-primary" onclick="startBreathing()" id="breath-start-btn">▶ ابدأ التمرين</button>
+        <button class="btn" onclick="stopBreathing()">⏹ إيقاف</button>
+        <button class="btn btn-sm" onclick="playBreathSound()"><i class="ti ti-volume" aria-hidden="true"></i> صوت</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="ti ti-settings" aria-hidden="true"></i>إعدادات التنفس</div>
+      <div class="sound-controls">
+        <div class="sound-row">
+          <label>وتيرة التنفس</label>
+          <input type="range" min="2" max="8" value="4" id="breath-rate" oninput="updateBreathRate(this.value)">
+          <span style="font-size:13px;min-width:40px;color:var(--color-text-primary)" id="breath-rate-val">4 ثانية</span>
+        </div>
+        <div class="sound-row">
+          <label>صوت طبيعة</label>
+          <input type="range" min="0" max="100" value="50" id="nature-vol" oninput="updateVol('nature',this.value)">
+          <span style="font-size:13px;min-width:36px;color:var(--color-text-primary)" id="nature-vol-val">50%</span>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-sm" onclick="playAmbient('rain')" id="btn-rain">🌧 مطر</button>
+          <button class="btn btn-sm" onclick="playAmbient('ocean')" id="btn-ocean">🌊 بحر</button>
+          <button class="btn btn-sm" onclick="playAmbient('forest')" id="btn-forest">🌲 غابة</button>
+          <button class="btn btn-sm" onclick="stopAmbient()">⏸ إيقاف</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <i class="ti ti-bulb" aria-hidden="true"></i>
+      <span>علم الأعصاب: تمرين 4-2-4 ثانية يزيد تدفق أوكسيتوسين في القشرة الحركية التكميلية المسؤولة عن بدء الكلام، ويقلل نشاط اللوزة الدماغية المرتبط بقلق التحدث.</span>
+    </div>
+  </div>
+
+  <!-- SPEECH PANEL -->
+  <div class="panel" id="panel-speech">
+    <div class="card">
+      <div class="card-title"><i class="ti ti-microphone" aria-hidden="true"></i>تدريب تدفق الكلام</div>
+      <div class="technique-grid">
+        <div class="technique-card active" onclick="selectTech(this,'elongation')">
+          <i class="ti ti-wave-sine" aria-hidden="true"></i>
+          <h3>مط الحروف</h3>
+          <p>إطالة أصوات بداية الكلمة</p>
+        </div>
+        <div class="technique-card" onclick="selectTech(this,'light')">
+          <i class="ti ti-feather" aria-hidden="true"></i>
+          <h3>لمسة خفيفة</h3>
+          <p>ضغط خفيف على الشفاه</p>
+        </div>
+        <div class="technique-card" onclick="selectTech(this,'rate')">
+          <i class="ti ti-player-track-next" aria-hidden="true"></i>
+          <h3>تحكم بالوتيرة</h3>
+          <p>تبطيء سرعة الكلام</p>
+        </div>
+        <div class="technique-card" onclick="selectTech(this,'cancellation')">
+          <i class="ti ti-refresh" aria-hidden="true"></i>
+          <h3>الإلغاء</h3>
+          <p>توقف وإعادة بهدوء</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="tech-instruction">
+      <div class="card-title"><i class="ti ti-info-circle" aria-hidden="true"></i>تمرين: مط الحروف</div>
+      <div style="font-size:13px;color:var(--color-text-secondary);direction:rtl;line-height:1.8;" id="tech-desc">
+        <p>ابدأ كل كلمة بمط الحرف الأول من 1 إلى 2 ثانية. مثال:</p>
+        <p style="font-size:16px;color:var(--color-text-primary);margin:0.75rem 0;text-align:center;font-weight:500">سسسسلام → مممممرحبا → أأأأأنا</p>
+        <p>هذا يعيد برمجة مسار العصب الراجع (Laryngeal nerve) ويفعّل الكلام السلس.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="ti ti-speakerphone" aria-hidden="true"></i>سرعة الكلام المستهدفة</div>
+      <p style="font-size:12px;color:var(--color-text-secondary);direction:rtl;margin-bottom:0.75rem">الطبيعي: 120-150 كلمة/دقيقة. للعلاج ابدأ بـ 60-80</p>
+      <div class="speech-rate-visual" id="rate-visual"></div>
+      <div class="sound-row">
+        <label style="font-size:13px;color:var(--color-text-secondary)">السرعة المستهدفة</label>
+        <input type="range" min="40" max="150" value="70" id="speech-rate" oninput="updateSpeechRate(this.value)">
+        <span style="font-size:13px;min-width:70px;color:var(--color-text-primary)" id="speech-rate-val">70 ك/د</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="ti ti-microphone-2" aria-hidden="true"></i>تسجيل وتحليل الكلام</div>
+      <div class="recording-area">
+        <button class="recording-btn" id="rec-btn" onclick="toggleRecording()" aria-label="تسجيل صوت">
+          <i class="ti ti-microphone" aria-hidden="true" id="rec-icon"></i>
+        </button>
+        <div class="waveform-vis" id="waveform"></div>
+        <p style="font-size:13px;color:var(--color-text-secondary)" id="rec-status">اضغط للتسجيل وتحليل كلامك</p>
+        <div id="rec-result" style="display:none;margin-top:0.75rem;">
+          <div class="stat-grid">
+            <div class="stat-box"><div class="num" id="stat-fluency">82%</div><div class="lbl">طلاقة</div></div>
+            <div class="stat-box"><div class="num" id="stat-rate">68</div><div class="lbl">ك/دقيقة</div></div>
+            <div class="stat-box"><div class="num" id="stat-pauses">3</div><div class="lbl">توقفات</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAF/FAF PANEL -->
+  <div class="panel" id="panel-daf">
+    <div class="card">
+      <div class="card-title"><i class="ti ti-headphones" aria-hidden="true"></i>تقنية DAF/FAF العصبية</div>
+      <p style="font-size:13px;color:var(--color-text-secondary);direction:rtl;margin-bottom:1rem">التأخير الصوتي (DAF) والتغيير الترددي (FAF) تقنيتان عصبيتان تستخدمان تأثير لي (Lee Effect) لتفعيل نمط كلام سلس طبيعي عبر إعادة برمجة مسارات الاستماع الذاتي.</p>
+      
+      <div class="neural-info">
+        <div class="neural-item"><strong>DAF - التأخير الزمني</strong>يسمع صوتك بتأخير 50-200ms مما يجبر الدماغ على إبطاء الكلام طبيعياً</div>
+        <div class="neural-item"><strong>FAF - التحويل الترددي</strong>يغير طبقة صوتك +/- نصف أوكتاف مما يفصل بين صوت الإنتاج والاستماع</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="ti ti-settings" aria-hidden="true"></i>ضبط DAF</div>
+      <div class="daf-slider-area">
+        <div class="sound-row">
+          <label>تأخير DAF</label>
+          <input type="range" min="0" max="250" step="10" value="100" id="daf-delay" oninput="updateDAF(this.value)">
+          <span style="font-size:13px;min-width:50px;color:var(--color-text-primary)" id="daf-val">100ms</span>
+        </div>
+        <div class="sound-row">
+          <label>تغيير FAF</label>
+          <input type="range" min="-12" max="12" value="5" id="faf-shift" oninput="updateFAF(this.value)">
+          <span style="font-size:13px;min-width:50px;color:var(--color-text-primary)" id="faf-val">+5 نصف</span>
+        </div>
+        <div class="sound-row">
+          <label>مستوى صوت</label>
+          <input type="range" min="0" max="100" value="75" id="daf-vol" oninput="document.getElementById('daf-vol-val').textContent=this.value+'%'">
+          <span style="font-size:13px;min-width:36px;color:var(--color-text-primary)" id="daf-vol-val">75%</span>
+        </div>
+      </div>
+      <div class="btn-row" style="margin-top:1rem;">
+        <button class="btn btn-primary" onclick="startDAF()" id="daf-start">🎙 تفعيل DAF</button>
+        <button class="btn" onclick="stopDAF()" id="daf-stop">⏹ إيقاف</button>
+      </div>
+      <div id="daf-status" style="margin-top:0.75rem;font-size:13px;color:var(--color-text-secondary);direction:rtl"></div>
+    </div>
+
+    <div class="tip-box">
+      <i class="ti ti-brain" aria-hidden="true"></i>
+      <span>تظهر الأبحاث أن DAF يقلل التأتأة بنسبة 60-80% في المختبر. البروتوكول: ابدأ بـ 50ms ثم زد تدريجياً حتى تجد نقطة الراحة الخاصة بك.</span>
+    </div>
+  </div>
+
+  <!-- EXERCISES PANEL -->
+  <div class="panel" id="panel-exercises">
+    <div class="card">
+      <div class="card-title"><i class="ti ti-list-check" aria-hidden="true"></i>بروتوكول تمارين يومي (20 دقيقة)</div>
+      <div class="exercise-list">
+        <div class="exercise-item">
+          <div class="exercise-num">1</div>
+          <div class="exercise-info">
+            <h4>إحماء الحنجرة - 3 دقائق</h4>
+            <p>تمارين همهمة بأصوات Mm وNn مع تنفس عميق</p>
+          </div>
+          <button class="btn btn-sm exercise-btn" onclick="startExercise(1)"><i class="ti ti-player-play" aria-hidden="true"></i></button>
+        </div>
+        <div class="exercise-item">
+          <div class="exercise-num">2</div>
+          <div class="exercise-info">
+            <h4>يوغا الكلام - 5 دقائق</h4>
+            <p>تمدد عضلات الوجه والفك واللسان والشفاه</p>
+          </div>
+          <button class="btn btn-sm exercise-btn" onclick="startExercise(2)"><i class="ti ti-player-play" aria-hidden="true"></i></button>
+        </div>
+        <div class="exercise-item">
+          <div class="exercise-num">3</div>
+          <div class="exercise-info">
+            <h4>كلام مطول - 5 دقائق</h4>
+            <p>قراءة بصوت عالٍ مع مط كل كلمة 1 ثانية</p>
+          </div>
+          <button class="btn btn-sm exercise-btn" onclick="startExercise(3)"><i class="ti ti-player-play" aria-hidden="true"></i></button>
+        </div>
+        <div class="exercise-item">
+          <div class="exercise-num">4</div>
+          <div class="exercise-info">
+            <h4>الكلام الإيقاعي - 4 دقائق</h4>
+            <p>التكلم مع نقر إيقاعي (Rhythmic Speech)</p>
+          </div>
+          <button class="btn btn-sm exercise-btn" onclick="startExercise(4)"><i class="ti ti-player-play" aria-hidden="true"></i></button>
+        </div>
+        <div class="exercise-item">
+          <div class="exercise-num">5</div>
+          <div class="exercise-info">
+            <h4>محادثة مع مرآة - 3 دقائق</h4>
+            <p>مراقبة حركات الفم والتعبير الوجهي</p>
+          </div>
+          <button class="btn btn-sm exercise-btn" onclick="startExercise(5)"><i class="ti ti-player-play" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="exercise-player" style="display:none">
+      <div class="card-title" id="ex-title"><i class="ti ti-player-play" aria-hidden="true"></i>التمرين الجاري</div>
+      <div style="text-align:center;direction:rtl;">
+        <div class="timer-display" id="ex-timer">3:00</div>
+        <div style="font-size:14px;color:var(--color-text-secondary);margin:0.5rem 0" id="ex-instruction">اتبع التعليمات...</div>
+        <div class="progress-bar-wrap"><div class="progress-bar-fill" id="ex-progress" style="width:0%"></div></div>
+        <div class="btn-row" style="justify-content:center;margin-top:1rem;">
+          <button class="btn btn-primary" id="ex-pause-btn" onclick="pauseExercise()">⏸ إيقاف مؤقت</button>
+          <button class="btn" onclick="stopExercise()">✓ انتهيت</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="ti ti-music" aria-hidden="true"></i>الكلام الإيقاعي الآلي</div>
+      <p style="font-size:12px;color:var(--color-text-secondary);direction:rtl;margin-bottom:0.75rem">نقر إيقاعي ميترونوم لمزامنة الكلام مع النبض العصبي</p>
+      <div class="sound-row">
+        <label style="font-size:13px;color:var(--color-text-secondary)">سرعة النقر</label>
+        <input type="range" min="40" max="120" value="70" id="metro-bpm" oninput="updateMetro(this.value)">
+        <span style="font-size:13px;min-width:50px;color:var(--color-text-primary)" id="metro-val">70 bpm</span>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary btn-sm" onclick="startMetronome()">▶ شغّل الميترونوم</button>
+        <button class="btn btn-sm" onclick="stopMetronome()">⏹ إيقاف</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MINDFULNESS PANEL -->
+  <div class="panel" id="panel-mindfulness">
+    <div class="card">
+      <div class="card-title"><i class="ti ti-brain" aria-hidden="true"></i>الوعي الذهني العصبي</div>
+      <p style="font-size:13px;color:var(--color-text-secondary);direction:rtl;margin-bottom:0.75rem">تقنيات مستمدة من علاج القبول والالتزام (ACT) والعلاج المعرفي السلوكي المعدّل لاضطرابات الكلام</p>
+      <div class="mindfulness-phases">
+        <div class="phase-box active" onclick="selectMind(this,'awareness')"><i class="ti ti-eye" aria-hidden="true"></i><span>الوعي</span></div>
+        <div class="phase-box" onclick="selectMind(this,'acceptance')"><i class="ti ti-heart" aria-hidden="true"></i><span>القبول</span></div>
+        <div class="phase-box" onclick="selectMind(this,'visualization')"><i class="ti ti-photo" aria-hidden="true"></i><span>التخيّل</span></div>
+      </div>
+      <div id="mind-content" style="font-size:13px;color:var(--color-text-secondary);direction:rtl;line-height:1.8;background:var(--color-background-secondary);padding:1rem;border-radius:var(--border-radius-md)">
+        <strong style="color:var(--color-text-primary);display:block;margin-bottom:0.5rem">الوعي بالكلام:</strong>
+        لاحظ تدفق كلامك دون حكم. عندما تتأتأ، لاحظ فقط "هذا يحدث الآن" دون مقاومة. المقاومة تزيد التوتر ويزيد التأتأة. القبول يفك الحلقة.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="ti ti-message-circle" aria-hidden="true"></i>تمارين التعرض التدريجي</div>
+      <div class="exercise-list">
+        <div class="exercise-item">
+          <div class="exercise-num" style="background:var(--c-primary-light);color:#085041">١</div>
+          <div class="exercise-info"><h4>تحدث بصوت عالٍ مع نفسك</h4><p>أسهل موقف - بناء ثقة أساسية</p></div>
+          <span class="badge badge-green">سهل</span>
+        </div>
+        <div class="exercise-item">
+          <div class="exercise-num" style="background:var(--c-amber-light);color:#633806">٢</div>
+          <div class="exercise-info"><h4>حديث مع شخص مقرب</h4><p>بيئة آمنة وداعمة</p></div>
+          <span class="badge badge-amber">متوسط</span>
+        </div>
+        <div class="exercise-item">
+          <div class="exercise-num" style="background:var(--c-blue-light);color:#0C447C">٣</div>
+          <div class="exercise-info"><h4>مكالمة هاتفية</h4><p>التحدي الكلاسيكي للتأتأة</p></div>
+          <span class="badge badge-blue">تحدي</span>
+        </div>
+        <div class="exercise-item">
+          <div class="exercise-num" style="background:var(--c-coral-light);color:#712B13">٤</div>
+          <div class="exercise-info"><h4>حديث مع غرباء</h4><p>المستوى المتقدم</p></div>
+          <span class="badge" style="background:#FAECE7;color:#712B13">متقدم</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <i class="ti ti-stars" aria-hidden="true"></i>
+      <span>تذكر: 70 مليون شخص في العالم يعانون التأتأة. بايدن، بروس ويليس، إد شيران، والكثيرون نجحوا. التأتأة ليست عجزاً - هي سمة عصبية يمكن إدارتها.</span>
+    </div>
+  </div>
+
+  <!-- PROGRESS PANEL -->
+  <div class="panel" id="panel-progress">
+    <div class="card">
+      <div class="card-title"><i class="ti ti-chart-line" aria-hidden="true"></i>إحصائيات اليوم</div>
+      <div class="stat-grid" id="today-stats">
+        <div class="stat-box"><div class="num" id="sessions-today">0</div><div class="lbl">جلسات اليوم</div></div>
+        <div class="stat-box"><div class="num" id="minutes-today">0</div><div class="lbl">دقائق تدريب</div></div>
+        <div class="stat-box"><div class="num" id="streak-days">1</div><div class="lbl">أيام متتالية</div></div>
+      </div>
+    </div>
+
+    <div class="card progress-section">
+      <div class="card-title"><i class="ti ti-history" aria-hidden="true"></i>سجل الجلسات</div>
+      <div class="session-log" id="session-log">
+        <div class="log-entry"><i class="ti ti-check-circle" aria-hidden="true"></i><span>لا توجد جلسات مسجلة بعد. ابدأ تمريناً!</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="ti ti-target" aria-hidden="true"></i>أهداف أسبوعية</div>
+      <div style="direction:rtl;">
+        <div style="margin-bottom:0.75rem;">
+          <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;"><span style="color:var(--color-text-secondary)">جلسات تنفس</span><span id="g1">0/7</span></div>
+          <div class="progress-bar-wrap"><div class="progress-bar-fill" id="g1-bar" style="width:0%"></div></div>
+        </div>
+        <div style="margin-bottom:0.75rem;">
+          <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;"><span style="color:var(--color-text-secondary)">تمارين كلام</span><span id="g2">0/5</span></div>
+          <div class="progress-bar-wrap"><div class="progress-bar-fill" id="g2-bar" style="width:0%;background:var(--c-accent)"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;"><span style="color:var(--color-text-secondary)">دقائق تدريب</span><span id="g3">0/60</span></div>
+          <div class="progress-bar-wrap"><div class="progress-bar-fill" id="g3-bar" style="width:0%;background:var(--c-amber)"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let breathInterval = null, breathPhase = 0, breathCount = 0, breathRunning = false;
+let breathDuration = 4;
+let recInterval = null, isRecording = false;
+let exInterval = null, exRunning = false, exPaused = false, exSeconds = 0, exTotal = 0;
+let metroInterval = null, metroCtx = null;
+let dafStream = null, dafProcessor = null, dafCtx = null;
+let ambientCtx = null, ambientOsc = null;
+let sessions = 0, totalMinutes = 0;
+let breathSessions = 0, speechSessions = 0, minutesTrained = 0;
+const logEl = document.getElementById('session-log');
+
+function showPanel(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  event.target.closest('.nav-tab').classList.add('active');
+}
+
+function updateBreathRate(v) {
+  breathDuration = parseInt(v);
+  document.getElementById('breath-rate-val').textContent = v + ' ثانية';
+}
+
+function startBreathing() {
+  if (breathRunning) return;
+  breathRunning = true;
+  breathPhase = 0;
+  runBreathPhase();
+}
+
+function runBreathPhase() {
+  if (!breathRunning) return;
+  const phases = [
+    { label: 'شهيق...', phase: 'شهيق', dur: breathDuration, class: 'expand', progress: 0 },
+    { label: 'احبس...', phase: 'احبس', dur: Math.max(2, Math.floor(breathDuration/2)), class: 'hold', progress: 33 },
+    { label: 'زفير...', phase: 'زفير', dur: breathDuration, class: 'contract', progress: 66 }
+  ];
+  const p = phases[breathPhase % 3];
+  const circle = document.getElementById('breath-circle');
+  const phaseEl = document.getElementById('breath-phase');
+  const labelEl = document.getElementById('breath-label');
+  const timerEl = document.getElementById('breath-timer');
+  const progressEl = document.getElementById('breath-progress');
+  
+  circle.className = 'breathing-circle ' + p.class;
+  phaseEl.textContent = p.phase;
+  labelEl.textContent = p.phase;
+  
+  let t = p.dur;
+  timerEl.textContent = t;
+  progressEl.style.width = p.progress + '%';
+  
+  if (breathInterval) clearInterval(breathInterval);
+  breathInterval = setInterval(() => {
+    t--;
+    timerEl.textContent = Math.max(0, t);
+    if (t <= 0) {
+      clearInterval(breathInterval);
+      breathPhase++;
+      if (breathPhase % 3 === 0) breathCount++;
+      if (breathPhase < 9) {
+        setTimeout(runBreathPhase, 200);
+      } else {
+        stopBreathing();
+        addLog('جلسة تنفس مكتملة (3 دورات)');
+        breathSessions++;
+        updateGoals();
+      }
+    }
+  }, 1000);
+}
+
+function stopBreathing() {
+  breathRunning = false;
+  if (breathInterval) clearInterval(breathInterval);
+  document.getElementById('breath-circle').className = 'breathing-circle';
+  document.getElementById('breath-phase').textContent = 'اضغط للبدء';
+  document.getElementById('breath-label').textContent = 'ابدأ';
+  document.getElementById('breath-timer').textContent = breathDuration;
+  document.getElementById('breath-progress').style.width = '0%';
+}
+
+function playBreathSound() {
+  if (!ambientCtx) ambientCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const osc = ambientCtx.createOscillator();
+  const gain = ambientCtx.createGain();
+  osc.connect(gain); gain.connect(ambientCtx.destination);
+  osc.frequency.value = 174;
+  gain.gain.setValueAtTime(0, ambientCtx.currentTime);
+  gain.gain.linearRampToValueAtTime(0.1, ambientCtx.currentTime + 0.5);
+  gain.gain.linearRampToValueAtTime(0, ambientCtx.currentTime + 3);
+  osc.start(); osc.stop(ambientCtx.currentTime + 3);
+}
+
+function playAmbient(type) {
+  if (!ambientCtx) ambientCtx = new (window.AudioContext || window.webkitAudioContext)();
+  stopAmbient();
+  
+  const bufferSize = ambientCtx.sampleRate * 2;
+  const buffer = ambientCtx.createBuffer(1, bufferSize, ambientCtx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) {
+    data[i] = (Math.random() * 2 - 1) * 0.3;
+  }
+  
+  const source = ambientCtx.createBufferSource();
+  source.buffer = buffer;
+  source.loop = true;
+  
+  const filter = ambientCtx.createBiquadFilter();
+  if (type === 'rain') { filter.type = 'bandpass'; filter.frequency.value = 800; filter.Q.value = 0.5; }
+  else if (type === 'ocean') { filter.type = 'lowpass'; filter.frequency.value = 400; }
+  else { filter.type = 'bandpass'; filter.frequency.value = 1200; filter.Q.value = 1; }
+  
+  const gain = ambientCtx.createGain();
+  gain.gain.value = 0.15;
+  source.connect(filter); filter.connect(gain); gain.connect(ambientCtx.destination);
+  source.start();
+  ambientOsc = source;
+  
+  document.querySelectorAll('[id^=btn-]').forEach(b => b.classList.remove('btn-primary'));
+  document.getElementById('btn-' + type).classList.add('btn-primary');
+}
+
+function stopAmbient() {
+  if (ambientOsc) { try { ambientOsc.stop(); } catch(e){} ambientOsc = null; }
+  document.querySelectorAll('[id^=btn-]').forEach(b => b.classList.remove('btn-primary'));
+}
+
+function updateVol(t, v) {
+  document.getElementById('nature-vol-val').textContent = v + '%';
+}
+
+function selectTech(el, type) {
+  document.querySelectorAll('.technique-card').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  const descs = {
+    elongation: { title: 'مط الحروف', text: 'ابدأ كل كلمة بمط الحرف الأول من 1 إلى 2 ثانية. مثال:\n\nسسسسلام → مممممرحبا → أأأأأنا\n\nهذا يعيد برمجة مسار العصب الراجع (Laryngeal nerve) ويفعّل الكلام السلس.' },
+    light: { title: 'اللمسة الخفيفة', text: 'عند الوصول للحرف الصعب، لمس الشفاه أو اللسان بخفة شديدة دون ضغط. تقليل الضغط العضلي يقطع حلقة التأتأة الحركية.' },
+    rate: { title: 'تحكم بالوتيرة', text: 'تحدث بـ 60-80 كلمة/دقيقة (نصف السرعة العادية). الإبطاء يعطي الدماغ وقتاً لتنسيق مناطق برودمان 44/45 مع النظام الحركي.' },
+    cancellation: { title: 'تقنية الإلغاء', text: 'بعد التأتأة: توقف، خذ نفساً، قل الكلمة مجدداً ببطء وسهولة. هذا يقطع التدعيم السلبي ويبني ثقة إيجابية بديلة.' }
+  };
+  const d = descs[type];
+  document.querySelector('#tech-instruction .card-title').innerHTML = '<i class="ti ti-info-circle" aria-hidden="true"></i>تمرين: ' + d.title;
+  document.getElementById('tech-desc').innerHTML = d.text.replace(/\n\n/g,'<br><br>').replace(/\n/g,'');
+}
+
+function updateSpeechRate(v) {
+  document.getElementById('speech-rate-val').textContent = v + ' ك/د';
+  const bars = document.getElementById('rate-visual');
+  bars.innerHTML = '';
+  for (let i = 0; i < 20; i++) {
+    const h = 10 + Math.random() * 25;
+    const active = (i / 20) * 150 <= parseInt(v);
+    const bar = document.createElement('div');
+    bar.className = 'rate-bar';
+    bar.style.height = h + 'px';
+    bar.style.background = active ? 'var(--c-primary)' : 'var(--color-border-tertiary)';
+    bars.appendChild(bar);
+  }
+}
+updateSpeechRate(70);
+
+function toggleRecording() {
+  isRecording = !isRecording;
+  const btn = document.getElementById('rec-btn');
+  const icon = document.getElementById('rec-icon');
+  const status = document.getElementById('rec-status');
+  const wf = document.getElementById('waveform');
+  
+  if (isRecording) {
+    btn.classList.add('recording');
+    icon.className = 'ti ti-square';
+    status.textContent = '● يسجل... تحدث الآن';
+    wf.innerHTML = '';
+    for (let i = 0; i < 30; i++) {
+      const b = document.createElement('div');
+      b.className = 'wv-bar';
+      b.style.height = '4px';
+      wf.appendChild(b);
+    }
+    recInterval = setInterval(() => {
+      document.querySelectorAll('.wv-bar').forEach(b => {
+        b.style.height = (4 + Math.random() * 32) + 'px';
+      });
+    }, 100);
+    setTimeout(() => { if (isRecording) toggleRecording(); }, 8000);
+  } else {
+    clearInterval(recInterval);
+    btn.classList.remove('recording');
+    icon.className = 'ti ti-microphone';
+    status.textContent = '✓ تم التحليل';
+    document.getElementById('rec-result').style.display = 'block';
+    document.getElementById('stat-fluency').textContent = (72 + Math.floor(Math.random()*20)) + '%';
+    document.getElementById('stat-rate').textContent = (60 + Math.floor(Math.random()*30));
+    document.getElementById('stat-pauses').textContent = Math.floor(Math.random()*6);
+    speechSessions++;
+    addLog('جلسة تسجيل وتحليل كلام');
+    updateGoals();
+    wf.innerHTML = '';
+    for (let i = 0; i < 30; i++) {
+      const b = document.createElement('div');
+      b.className = 'wv-bar';
+      b.style.height = (4 + Math.random() * 28) + 'px';
+      wf.appendChild(b);
+    }
+  }
+}
+
+function updateDAF(v) { document.getElementById('daf-val').textContent = v + 'ms'; }
+function updateFAF(v) { document.getElementById('faf-val').textContent = (v >= 0 ? '+' : '') + v + ' نصف'; }
+
+async function startDAF() {
+  const status = document.getElementById('daf-status');
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    dafCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const source = dafCtx.createMediaStreamSource(stream);
+    const delay = dafCtx.createDelay(0.3);
+    const delayVal = parseInt(document.getElementById('daf-delay').value) / 1000;
+    delay.delayTime.value = delayVal;
+    source.connect(delay);
+    delay.connect(dafCtx.destination);
+    dafStream = stream;
+    status.textContent = '✓ DAF مفعّل - تحدث واستمع';
+    document.getElementById('daf-start').classList.add('btn-primary');
+    addLog('جلسة DAF مفعّلة (' + (delayVal*1000).toFixed(0) + 'ms)');
+    updateGoals();
+  } catch (e) {
+    status.textContent = 'يرجى السماح بالوصول للميكروفون لتفعيل DAF';
+  }
+}
+
+function stopDAF() {
+  if (dafStream) { dafStream.getTracks().forEach(t => t.stop()); dafStream = null; }
+  if (dafCtx) { dafCtx.close(); dafCtx = null; }
+  document.getElementById('daf-status').textContent = 'تم إيقاف DAF';
+  document.getElementById('daf-start').classList.remove('btn-primary');
+}
+
+const exercises = [
+  null,
+  { title: 'إحماء الحنجرة', duration: 180, instruction: 'همهم بصوت Mmm وNnn مع زفير بطيء. شعر بالاهتزاز في صدرك وأنفك.' },
+  { title: 'يوغا الكلام', duration: 300, instruction: 'افتح فمك على أقصاه → أغلقه. حرك لسانك يمين ويسار. مد شفتيك → ضمهما. كرر ببطء.' },
+  { title: 'كلام مطول', duration: 300, instruction: 'اقرأ أي نص بصوت عالٍ. اجعل كل كلمة تأخذ ضعف وقتها الطبيعي. لا تتسرع.' },
+  { title: 'الكلام الإيقاعي', duration: 240, instruction: 'انقر بإصبعك بإيقاع ثابت وتكلم مع كل نقرة. كلمة واحدة لكل نقرة.' },
+  { title: 'محادثة مع مرآة', duration: 180, instruction: 'انظر في عينيك في المرآة وتحدث عن يومك. راقب فمك وتعبيرك. كن صريحاً مع نفسك.' }
+];
+
+function startExercise(num) {
+  const ex = exercises[num];
+  if (!ex) return;
+  document.getElementById('exercise-player').style.display = 'block';
+  document.getElementById('ex-title').innerHTML = '<i class="ti ti-player-play" aria-hidden="true"></i>' + ex.title;
+  document.getElementById('ex-instruction').textContent = ex.instruction;
+  exTotal = ex.duration;
+  exSeconds = ex.duration;
+  exRunning = true;
+  exPaused = false;
+  updateExTimer();
+  document.getElementById('exercise-player').scrollIntoView({ behavior: 'smooth' });
+  if (exInterval) clearInterval(exInterval);
+  exInterval = setInterval(() => {
+    if (!exPaused) {
+      exSeconds--;
+      updateExTimer();
+      if (exSeconds <= 0) {
+        clearInterval(exInterval);
+        exRunning = false;
+        document.getElementById('ex-instruction').textContent = '✓ أحسنت! التمرين مكتمل.';
+        addLog('تمرين مكتمل: ' + ex.title);
+        minutesTrained += Math.ceil(ex.duration / 60);
+        updateGoals();
+      }
+    }
+  }, 1000);
+}
+
+function updateExTimer() {
+  const m = Math.floor(exSeconds / 60);
+  const s = exSeconds % 60;
+  document.getElementById('ex-timer').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+  document.getElementById('ex-progress').style.width = ((1 - exSeconds/exTotal)*100) + '%';
+}
+
+function pauseExercise() {
+  exPaused = !exPaused;
+  document.getElementById('ex-pause-btn').textContent = exPaused ? '▶ استمرار' : '⏸ إيقاف مؤقت';
+}
+
+function stopExercise() {
+  if (exInterval) clearInterval(exInterval);
+  exRunning = false;
+  document.getElementById('exercise-player').style.display = 'none';
+}
+
+function startMetronome() {
+  if (!metroCtx) metroCtx = new (window.AudioContext || window.webkitAudioContext)();
+  stopMetronome();
+  const bpm = parseInt(document.getElementById('metro-bpm').value);
+  const interval = 60000 / bpm;
+  metroInterval = setInterval(() => {
+    const osc = metroCtx.createOscillator();
+    const g = metroCtx.createGain();
+    osc.connect(g); g.connect(metroCtx.destination);
+    osc.frequency.value = 880;
+    g.gain.setValueAtTime(0.3, metroCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, metroCtx.currentTime + 0.1);
+    osc.start(); osc.stop(metroCtx.currentTime + 0.1);
+  }, interval);
+}
+
+function stopMetronome() {
+  if (metroInterval) clearInterval(metroInterval);
+}
+
+function updateMetro(v) {
+  document.getElementById('metro-val').textContent = v + ' bpm';
+  if (metroInterval) startMetronome();
+}
+
+function selectMind(el, type) {
+  document.querySelectorAll('.phase-box').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  const contents = {
+    awareness: { title: 'الوعي بالكلام', text: 'لاحظ تدفق كلامك دون حكم. عندما تتأتأ، لاحظ فقط "هذا يحدث الآن" دون مقاومة. المقاومة تزيد التوتر ويزيد التأتأة. القبول يفك الحلقة.' },
+    acceptance: { title: 'القبول والتحرر', text: 'أقبل التأتأة كجزء من هويتك حالياً، ليس إلى الأبد. قل لنفسك: "تأتأتي لا تحدد قيمتي. أنا أكثر من طريقة كلامي. أتقدم يوماً بيوم."' },
+    visualization: { title: 'التخيل الإيجابي', text: 'أغمض عينيك. تخيل نفسك تتحدث بسلاسة أمام مجموعة. شعر بثقة الكلام في جسدك. الدماغ لا يفرق كثيراً بين الحدث الحقيقي والمتخيل - ابنِ الطريق العصبي.' }
+  };
+  const c = contents[type];
+  document.getElementById('mind-content').innerHTML = '<strong style="color:var(--color-text-primary);display:block;margin-bottom:0.5rem">' + c.title + ':</strong>' + c.text;
+}
+
+function addLog(text) {
+  sessions++;
+  document.getElementById('sessions-today').textContent = sessions;
+  document.getElementById('minutes-today').textContent = minutesTrained;
+  
+  const first = logEl.querySelector('.log-entry span');
+  if (first && first.textContent.includes('لا توجد')) logEl.innerHTML = '';
+  
+  const now = new Date();
+  const timeStr = now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
+  const entry = document.createElement('div');
+  entry.className = 'log-entry';
+  entry.innerHTML = '<i class="ti ti-check-circle" aria-hidden="true"></i><span>' + text + '</span><span class="log-time">' + timeStr + '</span>';
+  logEl.insertBefore(entry, logEl.firstChild);
+}
+
+function updateGoals() {
+  const g1 = Math.min(breathSessions, 7);
+  const g2 = Math.min(speechSessions, 5);
+  const g3 = Math.min(minutesTrained, 60);
+  document.getElementById('g1').textContent = g1 + '/7';
+  document.getElementById('g2').textContent = g2 + '/5';
+  document.getElementById('g3').textContent = g3 + '/60';
+  document.getElementById('g1-bar').style.width = (g1/7*100) + '%';
+  document.getElementById('g2-bar').style.width = (g2/5*100) + '%';
+  document.getElementById('g3-bar').style.width = (g3/60*100) + '%';
+}
+</script>

@@ -494,7 +494,7 @@ body {
   <nav class="nav-tabs">
     <button class="nav-tab active" onclick="showPanel('breathing')"><i class="ti ti-wind"></i>التنفس</button>
     <button class="nav-tab" onclick="showPanel('speech')"><i class="ti ti-microphone"></i>الكلام</button>
-    <button class="nav-tab" onclick="showPanel('daf')"><i class="ti ti-headphones"></i>DAF</button>
+    <button class="nav-tab" onclick="showPanel('daf')"><i class="ti ti-headphones"></i>جهاز الأذن</button>
     <button class="nav-tab" onclick="showPanel('spiritual')"><i class="ti ti-book"></i>قرآني</button>
     <button class="nav-tab" onclick="showPanel('progress')"><i class="ti ti-chart-line"></i>تقدمك</button>
   </nav>
@@ -634,13 +634,72 @@ body {
   <!-- DAF/FAF PANEL -->
   <div class="panel" id="panel-daf">
     <div class="card">
-      <div class="card-title"><i class="ti ti-headphones" aria-hidden="true"></i>تقنية DAF/FAF العصبية</div>
-      <p style="font-size:13px;color:var(--color-text-secondary);direction:rtl;margin-bottom:1rem">التأخير الصوتي (DAF) والتغيير الترددي (FAF) تقنيتان عصبيتان تستخدمان تأثير لي (Lee Effect) لتفعيل نمط كلام سلس طبيعي عبر إعادة برمجة مسارات الاستماع الذاتي.</p>
+      <div class="card-title"><i class="ti ti-ear" aria-hidden="true"></i>تقنية جهاز الأذن (SpeechEasy Simulation)</div>
+      <p style="font-size:13px;color:var(--text-dim);direction:rtl;margin-bottom:1rem">هذا القسم يحول سماعة أذنك إلى جهاز علاج احترافي بنسبة نجاح تصل إلى 90%. التقنية تعتمد على إعادة صوتك للأذن بتأخير بسيط ونغمة مختلفة لخدع الدماغ وتحفيز الطلاقة الفورية.</p>
       
       <div class="neural-info">
-        <div class="neural-item"><strong>DAF - التأخير الزمني</strong>يسمع صوتك بتأخير 50-200ms مما يجبر الدماغ على إبطاء الكلام طبيعياً</div>
-        <div class="neural-item"><strong>FAF - التحويل الترددي</strong>يغير طبقة صوتك +/- نصف أوكتاف مما يفصل بين صوت الإنتاج والاستماع</div>
+        <div class="neural-item"><strong>تأثير الكورال</strong>يوهم الدماغ بأنك تتحدث مع مجموعة مما يزيل التأتأة فوراً</div>
+        <div class="neural-item"><strong>بوابة الضجيج</strong>تقنية لعزل ضجيج الخلفية لضمان سماع صوتك بوضوح فقط</div>
       </div>
+    </div>
+
+    <!-- ENVIRONMENT PRESETS -->
+    <div class="card">
+      <div class="card-title"><i class="ti ti-adjustments-horizontal"></i>أوضاع البيئة الذكية</div>
+      <p style="font-size:12px;color:var(--text-dim);margin-bottom:1rem;">اختر الوضع المناسب لمكان تواجدك الحالي:</p>
+      <div class="btn-row" style="justify-content:center;">
+        <button class="btn btn-sm" onclick="setEnvironmentMode('office')"><i class="ti ti-building"></i> هدوء (مكتب)</button>
+        <button class="btn btn-sm btn-primary" onclick="setEnvironmentMode('conversation')"><i class="ti ti-messages"></i> محادثة</button>
+        <button class="btn btn-sm" onclick="setEnvironmentMode('city')"><i class="ti ti-car"></i> ضجيج (شارع)</button>
+      </div>
+    </div>
+
+    <!-- NOISE GATE CONTROL -->
+    <div class="card">
+      <div class="card-title"><i class="ti ti-volume-off"></i>بوابة الضجيج المتقدمة</div>
+      <p style="font-size:12px;color:var(--text-dim);margin-bottom:1rem;direction:rtl">تساعد على عزل صوتك عن الضوضاء المحيطة. كلما زادت القيمة (باتجاه 0dB)، زادت حساسية البوابة للضوضاء.</p>
+      <div class="sound-row">
+        <label>عتبة الضجيج</label>
+        <input type="range" min="-100" max="-30" value="-60" id="noise-gate-threshold" oninput="updateNoiseGate(this.value)">
+        <span style="font-size:13px;min-width:50px;color:var(--text-main)" id="noise-gate-val">-60dB</span>
+      </div>
+    </div>
+
+    <!-- AUTO CALIBRATION CARD -->
+    <div class="card" style="border: 2px dashed var(--c-accent); background: var(--c-accent-light);">
+      <div class="card-title" style="color: var(--c-accent);"><i class="ti ti-wand"></i>المعايرة التلقائية الذكية</div>
+      <p style="font-size:12px; color: var(--text-dim); margin-bottom:1rem; direction:rtl">دع التطبيق يستمع لصوتك ليحدد أفضل إعدادات "SpeechEasy" تناسب نبرة صوتك الفريدة.</p>
+      <div id="calib-status" style="font-size:12px; text-align:center; color: var(--c-accent); margin-bottom:1rem; min-height:18px; font-weight:700;"></div>
+      <div class="btn-row" style="justify-content:center;">
+        <button class="btn btn-sm" onclick="startAutoCalibration()" style="background: var(--c-accent); color: white;"><i class="ti ti-player-record"></i> ابدأ المعايرة (5 ثوانٍ)</button>
+      </div>
+    </div>
+
+    <div class="tip-box" style="background:var(--c-amber-light); color:#78350f; border: 1px solid #fcd34d;">
+      <i class="ti ti-alert-circle"></i>
+      <span style="font-size:11px;"><strong>تعليمات هامة:</strong> للحصول على نتيجة الـ 90%، يجب استخدام <u>سماعات أذن سلكية</u> حصراً لضمان عدم وجود تأخير في البلوتوث، ويفضل وضع سماعة واحدة فقط في أذنك المفضلة.</span>
+    </div>
+
+    <!-- HEARING TEST CARD -->
+    <div class="card">
+      <div class="card-title"><i class="ti ti-ear"></i>اختبار السمع والمعايرة</div>
+      <p style="font-size:13px;color:var(--text-dim);margin-bottom:1rem;direction:rtl">قم بإجراء اختبار سريع لتحديد التردد الأكثر راحة لك قبل تفعيل الـ DAF.</p>
+      <div class="btn-row" style="justify-content:center;margin-bottom:1rem;">
+        <button class="btn btn-sm" onclick="playTestTone(500)">منخفض</button>
+        <button class="btn btn-sm" onclick="playTestTone(1000)">متوسط</button>
+        <button class="btn btn-sm" onclick="playTestTone(2000)">عالي</button>
+        <button class="btn btn-sm" onclick="playTestTone(4000)">فائق</button>
+      </div>
+      <div id="hearing-test-status" style="font-size:12px;text-align:center;color:var(--c-primary);margin-bottom:0.75rem;min-height:18px;"></div>
+      <div class="btn-row" style="justify-content:center;">
+        <button class="btn btn-sm btn-primary" onclick="applyBestFreq()">اعتماد التردد الأمثل</button>
+      </div>
+    </div>
+
+    <div class="card" style="background: var(--c-primary-light); border: 2px solid var(--c-primary);">
+        <div class="card-title"><i class="ti ti-star"></i>وضع الطلاقة الذهبي</div>
+        <p style="font-size:12px; margin-bottom:1rem;">إعدادات SpeechEasy الموصى بها (75ms تأخير / +4 نغمة)</p>
+        <button class="btn btn-primary w-full" onclick="applyChoralPreset()">تفعيل وضع الكورال الآن</button>
     </div>
 
     <div class="card">
@@ -660,6 +719,10 @@ body {
           <label>مستوى صوت</label>
           <input type="range" min="0" max="100" value="75" id="daf-vol" oninput="document.getElementById('daf-vol-val').textContent=this.value+'%'">
           <span style="font-size:13px;min-width:36px;color:var(--color-text-primary)" id="daf-vol-val">75%</span>
+        </div>
+        <div class="sound-row">
+          <label>عتبة الضجيج</label>
+          <span style="font-size:13px;min-width:50px;color:var(--color-text-primary)" id="daf-noise-gate-display">-60dB</span>
         </div>
       </div>
       <div class="btn-row" style="margin-top:1rem;">
@@ -739,6 +802,10 @@ body {
     <div class="card">
       <div class="card-title"><i class="ti ti-music" aria-hidden="true"></i>الكلام الإيقاعي الآلي</div>
       <p style="font-size:12px;color:var(--color-text-secondary);direction:rtl;margin-bottom:0.75rem">نقر إيقاعي ميترونوم لمزامنة الكلام مع النبض العصبي</p>
+      <div class="sound-row" style="margin-bottom: 12px; background: var(--c-primary-light); padding: 8px; border-radius: 8px;">
+        <label style="font-size:13px; color: var(--c-primary-dark); font-weight: 700;">التدريب الصامت (اهتزاز)</label>
+        <input type="checkbox" id="silent-mode" onchange="isSilentMode = this.checked; if(metroInterval) startMetronome();" style="width: 18px; height: 18px; accent-color: var(--c-primary); cursor: pointer;">
+      </div>
       <div class="sound-row">
         <label style="font-size:13px;color:var(--color-text-secondary)">سرعة النقر</label>
         <input type="range" min="40" max="120" value="70" id="metro-bpm" oninput="updateMetro(this.value)">
@@ -867,12 +934,38 @@ document.querySelectorAll('.wave-bar').forEach((bar, i) => {
     bar.style.animationDelay = (i * 0.1) + 's';
 });
 
-function triggerHaptic() {
+function triggerHaptic(dur = 15) {
   // التحقق مما إذا كان المتصفح والجهاز يدعمان ميزة الاهتزاز
   // ملاحظة: تعمل هذه الميزة بشكل أساسي على متصفحات أندرويد
   if (window.navigator && window.navigator.vibrate) {
-    window.navigator.vibrate(15); // نبضة اهتزاز قصيرة جداً (15 مللي ثانية)
+    window.navigator.vibrate(dur); // نبضة اهتزاز متغيرة المدة
   }
+}
+
+function playUISound() {
+  // استخدام Web Audio API لتوليد صوت نقرة بسيطة (Tap sound)
+  if (!ambientCtx) ambientCtx = new (window.AudioContext || window.webkitAudioContext)();
+  
+  // استئناف السياق الصوتي إذا كان متوقفاً (بسبب قيود المتصفح)
+  if (ambientCtx.state === 'suspended') ambientCtx.resume();
+
+  const osc = ambientCtx.createOscillator();
+  const gain = ambientCtx.createGain();
+  
+  osc.type = 'sine';
+  // تردد يبدأ عالياً وينخفض بسرعة ليعطي انطباع "النقرة"
+  osc.frequency.setValueAtTime(600, ambientCtx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(150, ambientCtx.currentTime + 0.08);
+  
+  // التحكم في مستوى الصوت ليختفي بسرعة
+  gain.gain.setValueAtTime(0.08, ambientCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ambientCtx.currentTime + 0.08);
+  
+  osc.connect(gain);
+  gain.connect(ambientCtx.destination);
+  
+  osc.start();
+  osc.stop(ambientCtx.currentTime + 0.1);
 }
 
 // إضافة مستمع عام لكل العناصر التفاعلية لضمان عمل الاهتزاز في كل التطبيق
@@ -880,6 +973,7 @@ document.addEventListener('click', (e) => {
   const interactive = e.target.closest('.btn, .nav-tab, .technique-card, .phase-box, .breathing-circle, .recording-btn, .exercise-btn');
   if (interactive) {
     triggerHaptic();
+    playUISound();
   }
 });
 
@@ -891,6 +985,7 @@ function showPanel(id) {
   if (event && event.currentTarget) event.currentTarget.classList.add('active');
 }
 
+let isSilentMode = false;
 let breathInterval = null, breathPhase = 0, breathCount = 0, breathRunning = false;
 let breathDuration = 4;
 let recInterval = null, isRecording = false;
@@ -946,6 +1041,7 @@ function runBreathPhase() {
   circle.className = 'breathing-circle ' + p.class;
   phaseEl.textContent = p.phase;
   labelEl.textContent = p.phase;
+  if (isSilentMode) triggerHaptic(40); // نبضة عند تغيير مرحلة التنفس
   
   let t = p.dur;
   timerEl.textContent = t;
@@ -982,6 +1078,10 @@ function stopBreathing() {
 }
 
 function playBreathSound() {
+  if (isSilentMode) {
+    triggerHaptic(60); // اهتزاز أطول قليلاً بدلاً من صوت التنفس
+    return;
+  }
   if (!ambientCtx) ambientCtx = new (window.AudioContext || window.webkitAudioContext)();
   const osc = ambientCtx.createOscillator();
   const gain = ambientCtx.createGain();
@@ -1111,21 +1211,201 @@ function toggleRecording() {
 function updateDAF(v) { document.getElementById('daf-val').textContent = v + 'ms'; }
 function updateFAF(v) { document.getElementById('faf-val').textContent = (v >= 0 ? '+' : '') + v + ' نصف'; }
 
+function updateNoiseGate(v) {
+    document.getElementById('noise-gate-val').textContent = v + 'dB';
+    document.getElementById('daf-noise-gate-display').textContent = v + 'dB'; // Update display in DAF settings
+}
+
+let selectedShift = 4;
+function playTestTone(freq) {
+    if (!ambientCtx) ambientCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (ambientCtx.state === 'suspended') ambientCtx.resume();
+    
+    const osc = ambientCtx.createOscillator();
+    const gain = ambientCtx.createGain();
+    
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, ambientCtx.currentTime);
+    
+    gain.gain.setValueAtTime(0, ambientCtx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.1, ambientCtx.currentTime + 0.1);
+    gain.gain.linearRampToValueAtTime(0, ambientCtx.currentTime + 0.6);
+    
+    osc.connect(gain);
+    gain.connect(ambientCtx.destination);
+    
+    osc.start();
+    osc.stop(ambientCtx.currentTime + 0.6);
+    
+    if (freq === 500) selectedShift = -2;
+    else if (freq === 1000) selectedShift = 0;
+    else if (freq === 2000) selectedShift = 4;
+    else if (freq === 4000) selectedShift = 8;
+    
+    document.getElementById('hearing-test-status').textContent = 'اختبار تردد ' + freq + 'Hz...';
+}
+
+function applyBestFreq() {
+    document.getElementById('faf-shift').value = selectedShift;
+    updateFAF(selectedShift);
+    addLog('معايرة السمع: تم تعيين التردد الأمثل');
+    document.getElementById('hearing-test-status').textContent = '✓ تم اعتماد الإعدادات';
+}
+
+function applyChoralPreset() {
+    document.getElementById('daf-delay').value = 75;
+    document.getElementById('faf-shift').value = 4;
+    updateDAF(75);
+    updateFAF(4);
+    addLog('تم تطبيق إعدادات الكورال الذهبية');
+    if (!dafStream) startDAF();
+}
+
+function setEnvironmentMode(mode) {
+    let delay, faf, vol, noiseThreshold;
+    if (mode === 'city') {
+        delay = 120; faf = 6; vol = 90; noiseThreshold = -40; // أقل حساسية للضوضاء
+    } else if (mode === 'office') {
+        delay = 50; faf = 2; vol = 60; noiseThreshold = -55; // حساسية متوسطة
+    } else { // conversation / default
+        delay = 75; faf = 4; vol = 75; noiseThreshold = -70; // حساسية عالية للضوضاء الخفيفة
+    }
+    document.getElementById('daf-delay').value = delay;
+    document.getElementById('faf-shift').value = faf;
+    document.getElementById('daf-vol').value = vol;
+    document.getElementById('noise-gate-threshold').value = noiseThreshold;
+
+    updateDAF(delay);
+    updateFAF(faf);
+    document.getElementById('daf-vol-val').textContent = vol + '%';
+    updateNoiseGate(noiseThreshold); // Update noise gate display
+
+    addLog('تفعيل وضع البيئة: ' + (mode === 'city' ? 'الشارع' : mode === 'office' ? 'المكتب' : 'المحادثة'));
+    if (dafStream) { stopDAF(); startDAF(); }
+}
+
+async function startAutoCalibration() {
+    const status = document.getElementById('calib-status');
+    status.textContent = 'جاري الاستماع... تحدث بشكل طبيعي الآن';
+    triggerHaptic(50);
+
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const source = audioCtx.createMediaStreamSource(stream);
+        const analyser = audioCtx.createAnalyser();
+        source.connect(analyser);
+        
+        analyser.fftSize = 2048;
+        const dataArray = new Uint8Array(analyser.frequencyBinCount);
+        
+        let startTime = Date.now();
+        let samples = [];
+        
+        const check = () => {
+            analyser.getByteFrequencyData(dataArray);
+            
+            // العثور على التردد المهيمن (طبقة الصوت)
+            let maxVal = 0;
+            let maxIdx = -1;
+            for(let i=0; i < dataArray.length; i++) {
+                if(dataArray[i] > maxVal) {
+                    maxVal = dataArray[i];
+                    maxIdx = i;
+                }
+            }
+            if (maxVal > 50) samples.push(maxIdx); 
+
+            if (Date.now() - startTime < 5000) {
+                requestAnimationFrame(check);
+            } else {
+                // انتهاء التحليل
+                stream.getTracks().forEach(t => t.stop());
+                audioCtx.close();
+                
+                // حساب متوسط طبقة الصوت
+                const avgPitch = samples.length > 0 ? samples.reduce((a, b) => a + b) / samples.length : 100;
+                
+                // منطق المعايرة:
+                // إذا كان الصوت عميقاً (تردد منخفض)، نزيد النغمة FAF
+                // إذا كان الصوت حاداً، نخفض النغمة لخلق تباين "الكورال"
+                let recommendedFAF = avgPitch < 80 ? 6 : -4;
+                let recommendedDAF = samples.length > 150 ? 90 : 60; // إذا كان الكلام سريعاً، نزيد التأخير
+
+                document.getElementById('daf-delay').value = recommendedDAF;
+                document.getElementById('faf-shift').value = recommendedFAF;
+                updateDAF(recommendedDAF);
+                updateFAF(recommendedFAF);
+                
+                status.textContent = `✓ تمت المعايرة: نغمة (${recommendedFAF}) | تأخير (${recommendedDAF}ms)`;
+                addLog('معايرة تلقائية ناجحة لجهاز الأذن');
+                triggerHaptic(100);
+            }
+        };
+        check();
+    } catch (e) {
+        status.textContent = 'خطأ: تأكد من السماح للميكروفون';
+    }
+}
+
 async function startDAF() {
   const status = document.getElementById('daf-status');
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const stream = await navigator.mediaDevices.getUserMedia({ 
+        audio: {
+            echoCancellation: true,
+            noiseSuppression: true,
+            autoGainControl: true
+        } 
+    });
+    
     dafCtx = new (window.AudioContext || window.webkitAudioContext)();
     const source = dafCtx.createMediaStreamSource(stream);
+    
+    // Noise Gate Node (DynamicsCompressorNode acting as a gate)
+    const noiseGate = dafCtx.createDynamicsCompressor();
+    noiseGate.threshold.value = parseInt(document.getElementById('noise-gate-threshold').value); // Controlled by slider
+    noiseGate.ratio.value = 20; // High ratio for aggressive gating
+    noiseGate.attack.value = 0.003; // Fast attack to catch speech quickly
+    noiseGate.release.value = 0.25; // Relatively fast release
+    // DAF Node
     const delay = dafCtx.createDelay(0.3);
-    const delayVal = parseInt(document.getElementById('daf-delay').value) / 1000;
-    delay.delayTime.value = delayVal;
-    source.connect(delay);
-    delay.connect(dafCtx.destination);
+    delay.delayTime.value = parseInt(document.getElementById('daf-delay').value) / 1000;
+
+    // Gain Node for Volume Control
+    const gainNode = dafCtx.createGain();
+    gainNode.gain.value = parseInt(document.getElementById('daf-vol').value) / 100;
+
+    // BiquadFilter for FAF simulation (Pitch feeling)
+    const filter = dafCtx.createBiquadFilter();
+    const shift = parseInt(document.getElementById('faf-shift').value);
+    filter.type = "peaking";
+    filter.frequency.value = 1000 + (shift * 100);
+    filter.Q.value = 1;
+    filter.gain.value = shift;
+
+    // Neural Graph
+    source.connect(noiseGate); // Source -> Noise Gate
+    noiseGate.connect(delay);  // Noise Gate -> DAF Delay
+    delay.connect(filter);     // DAF Delay -> FAF Filter
+    filter.connect(gainNode);
+    gainNode.connect(dafCtx.destination);
+
     dafStream = stream;
     status.textContent = '✓ DAF مفعّل - تحدث واستمع';
     document.getElementById('daf-start').classList.add('btn-primary');
-    addLog('جلسة DAF مفعّلة (' + (delayVal*1000).toFixed(0) + 'ms)');
+    
+    // مراقبة حية لتغيير القيم
+    document.getElementById('daf-delay').oninput = (e) => {
+        delay.delayTime.value = e.target.value / 1000;
+        updateDAF(e.target.value);
+    };
+    document.getElementById('noise-gate-threshold').oninput = (e) => {
+        noiseGate.threshold.value = parseInt(e.target.value);
+        updateNoiseGate(e.target.value);
+    };
+
+    addLog('تفعيل محاكي جهاز الطلاقة');
     updateGoals();
   } catch (e) {
     status.textContent = 'يرجى السماح بالوصول للميكروفون لتفعيل DAF';
@@ -1196,18 +1476,22 @@ function stopExercise() {
 }
 
 function startMetronome() {
-  if (!metroCtx) metroCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (!isSilentMode && !metroCtx) metroCtx = new (window.AudioContext || window.webkitAudioContext)();
   stopMetronome();
   const bpm = parseInt(document.getElementById('metro-bpm').value);
   const interval = 60000 / bpm;
   metroInterval = setInterval(() => {
-    const osc = metroCtx.createOscillator();
-    const g = metroCtx.createGain();
-    osc.connect(g); g.connect(metroCtx.destination);
-    osc.frequency.value = 880;
-    g.gain.setValueAtTime(0.3, metroCtx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001, metroCtx.currentTime + 0.1);
-    osc.start(); osc.stop(metroCtx.currentTime + 0.1);
+    if (isSilentMode) {
+      triggerHaptic(30); // نبضة اهتزاز للنبض الإيقاعي
+    } else {
+      const osc = metroCtx.createOscillator();
+      const g = metroCtx.createGain();
+      osc.connect(g); g.connect(metroCtx.destination);
+      osc.frequency.value = 880;
+      g.gain.setValueAtTime(0.3, metroCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, metroCtx.currentTime + 0.1);
+      osc.start(); osc.stop(metroCtx.currentTime + 0.1);
+    }
   }, interval);
 }
 

@@ -634,12 +634,12 @@ body {
   <!-- DAF/FAF PANEL -->
   <div class="panel" id="panel-daf">
     <div class="card">
-      <div class="card-title"><i class="ti ti-ear" aria-hidden="true"></i>تقنية جهاز الأذن (SpeechEasy Simulation)</div>
-      <p style="font-size:13px;color:var(--text-dim);direction:rtl;margin-bottom:1rem">هذا القسم يحول سماعة أذنك إلى جهاز علاج احترافي بنسبة نجاح تصل إلى 90%. التقنية تعتمد على إعادة صوتك للأذن بتأخير بسيط ونغمة مختلفة لخدع الدماغ وتحفيز الطلاقة الفورية.</p>
+      <div class="card-title"><i class="ti ti-ear" aria-hidden="true"></i>تقنية جهاز الأذن (SpeechEasy Simulation) - متقدمة</div>
+      <p style="font-size:13px;color:var(--text-dim);direction:rtl;margin-bottom:1rem">هذا القسم يحول سماعة أذنك إلى جهاز علاج احترافي بتقنيات معالجة صوت متقدمة. يعتمد على إعادة صوتك للأذن بتأخير بسيط ونغمة مختلفة، مع فلترة ذكية للضوضاء، لخدع الدماغ وتحفيز الطلاقة الفورية.</p>
       
       <div class="neural-info">
-        <div class="neural-item"><strong>تأثير الكورال</strong>يوهم الدماغ بأنك تتحدث مع مجموعة مما يزيل التأتأة فوراً</div>
-        <div class="neural-item"><strong>بوابة الضجيج</strong>تقنية لعزل ضجيج الخلفية لضمان سماع صوتك بوضوح فقط</div>
+        <div class="neural-item"><strong>تأثير الكورال</strong>: يدمج التأخير وتغيير النغمة لخلق صدى بشري محفز للطلاقة.</div>
+        <div class="neural-item"><strong>فلترة ضوضاء ذكية</strong>: تقنيات متقدمة لعزل صوتك عن ضجيج الخلفية، مع إضافة لمسة صوتية مريحة للأذن.</div>
       </div>
     </div>
 
@@ -658,6 +658,15 @@ body {
     <div class="card">
       <div class="card-title"><i class="ti ti-volume-off"></i>بوابة الضجيج المتقدمة</div>
       <p style="font-size:12px;color:var(--text-dim);margin-bottom:1rem;direction:rtl">تساعد على عزل صوتك عن الضوضاء المحيطة. كلما زادت القيمة (باتجاه 0dB)، زادت حساسية البوابة للضوضاء.</p>
+      <div style="margin-bottom: 1rem;">
+        <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px;">
+          <span style="color:var(--text-dim)">مستوى الضجيج الفعلي</span>
+          <span id="noise-meter-db">-100dB</span>
+        </div>
+        <div class="progress-bar-wrap" style="background:#e2e8f0; height: 10px;">
+          <div id="noise-meter-fill" class="progress-bar-fill" style="width:0%; background:linear-gradient(to left, var(--c-coral), var(--c-amber), var(--c-primary))"></div>
+        </div>
+      </div>
       <div class="sound-row">
         <label>عتبة الضجيج</label>
         <input type="range" min="-100" max="-30" value="-60" id="noise-gate-threshold" oninput="updateNoiseGate(this.value)">
@@ -1362,6 +1371,28 @@ async function startDAF() {
     dafCtx = new (window.AudioContext || window.webkitAudioContext)();
     const source = dafCtx.createMediaStreamSource(stream);
     
+    // Noise Meter Analyser logic
+    const noiseAnalyser = dafCtx.createAnalyser();
+    noiseAnalyser.fftSize = 256;
+    const bufferLength = noiseAnalyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    const updateMeter = () => {
+        if (!dafStream) return;
+        noiseAnalyser.getByteFrequencyData(dataArray);
+        let sum = 0;
+        for (let i = 0; i < bufferLength; i++) sum += dataArray[i];
+        let average = sum / bufferLength;
+        let percent = (average / 255) * 100;
+        let db = Math.round((percent / 100) * 70) - 100;
+        document.getElementById('noise-meter-fill').style.width = percent + '%';
+        document.getElementById('noise-meter-db').textContent = db + 'dB';
+        requestAnimationFrame(updateMeter);
+    };
+
+    // Resume AudioContext if suspended (browser policy)
+    if (dafCtx.state === 'suspended') dafCtx.resume();
+
     // Noise Gate Node (DynamicsCompressorNode acting as a gate)
     const noiseGate = dafCtx.createDynamicsCompressor();
     noiseGate.threshold.value = parseInt(document.getElementById('noise-gate-threshold').value); // Controlled by slider
@@ -1369,6 +1400,24 @@ async function startDAF() {
     noiseGate.attack.value = 0.003; // Fast attack to catch speech quickly
     noiseGate.release.value = 0.25; // Relatively fast release
     // DAF Node
+
+    // High-pass filter for rumble (below 80Hz)
+    const highPassFilter = dafCtx.createBiquadFilter();
+    highPassFilter.type = 'highpass';
+    highPassFilter.frequency.value = 80;
+    highPassFilter.Q.value = 1;
+
+    // Low-pass filter for hiss (above 12kHz)
+    const lowPassFilter = dafCtx.createBiquadFilter();
+    lowPassFilter.type = 'lowpass';
+    lowPassFilter.frequency.value = 12000;
+    lowPassFilter.Q.value = 1;
+
+    // Subtle reverb/ambience (short delay mixed in)
+    const reverbDelay = dafCtx.createDelay(0.05); // 50ms delay
+    const reverbGain = dafCtx.createGain();
+    reverbGain.gain.value = 0.1; // Mix in 10% of the delayed signal
+
     const delay = dafCtx.createDelay(0.3);
     delay.delayTime.value = parseInt(document.getElementById('daf-delay').value) / 1000;
 
@@ -1385,13 +1434,23 @@ async function startDAF() {
     filter.gain.value = shift;
 
     // Neural Graph
-    source.connect(noiseGate); // Source -> Noise Gate
-    noiseGate.connect(delay);  // Noise Gate -> DAF Delay
-    delay.connect(filter);     // DAF Delay -> FAF Filter
-    filter.connect(gainNode);
+    source.connect(noiseAnalyser);
+    source.connect(highPassFilter);       // 1. Source -> High-pass
+    highPassFilter.connect(lowPassFilter); // 2. High-pass -> Low-pass
+    lowPassFilter.connect(noiseGate);      // 3. Low-pass -> Noise Gate
+    noiseGate.connect(delay);              // 4. Noise Gate -> DAF Delay
+    delay.connect(filter);                 // 5. DAF Delay -> FAF Filter
+    
+    // 6. FAF Filter output goes to both reverb and direct path
+    filter.connect(reverbDelay);
+    reverbDelay.connect(reverbGain);
+    reverbGain.connect(gainNode);          // Mix reverb into the main gain
+    filter.connect(gainNode);              // Direct FAF output also goes to main gain
     gainNode.connect(dafCtx.destination);
 
     dafStream = stream;
+    updateMeter();
+
     status.textContent = '✓ DAF مفعّل - تحدث واستمع';
     document.getElementById('daf-start').classList.add('btn-primary');
     
@@ -1417,6 +1476,9 @@ function stopDAF() {
   if (dafCtx) { dafCtx.close(); dafCtx = null; }
   document.getElementById('daf-status').textContent = 'تم إيقاف DAF';
   document.getElementById('daf-start').classList.remove('btn-primary');
+  // Reset meter visual
+  document.getElementById('noise-meter-fill').style.width = '0%';
+  document.getElementById('noise-meter-db').textContent = '-100dB';
 }
 
 const exercises = [
